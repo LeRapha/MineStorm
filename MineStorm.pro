@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     game.cpp \
     gameboard.cpp \
     gameoflife.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    minestorm.cpp
 
 HEADERS  += \
     controller.h \
@@ -29,6 +30,7 @@ HEADERS  += \
     game.h \
     gameboard.h \
     gameoflife.h \
-    mainwindow.h
+    mainwindow.h \
+    minestorm.h
 
 FORMS    +=
