@@ -22,7 +22,9 @@ SOURCES += main.cpp \
     gameboard.cpp \
     gameoflife.cpp \
     mainwindow.cpp \
-    minestorm.cpp
+    minestorm.cpp \
+    element.cpp \
+    spaceship.cpp
 
 HEADERS  += \
     controller.h \
@@ -31,6 +33,8 @@ HEADERS  += \
     gameboard.h \
     gameoflife.h \
     mainwindow.h \
-    minestorm.h
+    minestorm.h \
+    element.h \
+    spaceship.h
 
 FORMS    +=
