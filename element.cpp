@@ -1,11 +1,13 @@
 #include "element.h"
 
-Element::Element(int x, int y, int dX, int dY)
+Element::Element(int x, int y, int xSpeed, int ySpeed, int xDir, int yDir)
 {
     _x_pos = x;
     _y_pos = y;
-    _dX = dX;
-    _dX = dY;
+    _dXSpeed = xSpeed;
+    _dYSpeed = ySpeed;
+    _dXDirection = xDir;
+    _dYDirection = yDir;
 }
 
 Element::~Element()
@@ -14,11 +16,11 @@ Element::~Element()
 }
 
 int Element::getDX(){
-    return _dX;
+    return _dXSpeed;
 }
 
 int Element::getDY(){
-    return _dY;
+    return _dYSpeed;
 }
 
 int Element::getX(){
@@ -39,15 +41,33 @@ void Element::setY(int y)
     _y_pos = y;
 }
 
-void Element::setDirection(int dx, int dy){
-    _dX = dx;
-    _dY = dy;
-}
-
 void Element::updatePosition()
 {
-    translate(_dX, _dY);
-    setX(_x_pos + _dX);
-    setY(_y_pos + _dY);
+    translate(_dXSpeed, _dYSpeed);
+    setX(_x_pos + _dXSpeed);
+    setY(_y_pos + _dYSpeed);
 }
 
+void Element::accelerate(){
+    if(_dXDirection > _dXSpeed){
+        _dXSpeed++;
+    }
+    else if(_dXDirection < _dXSpeed){
+        _dXSpeed--;
+    }
+    if(_dYDirection > _dYSpeed){
+        _dYSpeed++;
+    }
+    else if(_dYDirection < _dYSpeed){
+        _dYSpeed--;
+    }
+}
+
+void Element::rotate(int angle){
+    float rad = angle * PI / 180.0;
+    int tmpX = _dXDirection;
+    int tmpY = _dYDirection;
+    _dXDirection = cos(rad)*(tmpX - _x_pos) - sin(rad)*(tmpY - _y_pos) + _x_pos;
+    _dYDirection = sin(rad)*(tmpX - _x_pos) + cos(rad)*(tmpY - _y_pos) + _y_pos;
+
+}

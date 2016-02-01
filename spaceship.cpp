@@ -1,6 +1,6 @@
 #include "spaceship.h"
 
-Spaceship::Spaceship(int x, int y):Element(x, y, 0, 0)
+Spaceship::Spaceship(int x, int y):Element(x, y, 0, 0, 0, MAX_SPEED)
 {
     this->initializeShape();
 }
@@ -19,6 +19,11 @@ void Spaceship::initializeShape(){
                     getX()-5,getY()-5);
 }
 
-void Spaceship::moveForward(){
-
+void Spaceship::reshape(){
+    this->putPoints(0, 5,
+                    getX()-5,getY()+5,
+                    getX()+5,getY()+5,
+                    getX()+5,getY()-5,
+                    getX(),getY()-10,
+                    getX()-5,getY()-5);
 }

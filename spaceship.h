@@ -10,7 +10,7 @@ protected:
 public:
     Spaceship(int x, int y);
     ~Spaceship();
-    void moveForward();
+    void reshape();
 };
 
 #endif // SPACESHIP_H

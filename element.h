@@ -1,6 +1,9 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
+#define MAX_SPEED 2
+#define PI 3.14
+
 #include <QPolygon>
 #include <iostream>
 
@@ -12,21 +15,23 @@ protected:
     virtual void initializeShape() = 0;
     int _x_pos;
     int _y_pos;
-    int _dX;
-    int _dY;
+    int _dXSpeed;
+    int _dYSpeed;
+    int _dXDirection;
+    int _dYDirection;
 public:
-    Element(int x, int y, int dX, int dY);
+    Element(int x, int y, int xSpeed, int ySpeed, int xDir, int yDir);
     ~Element();
-    int getSpeed();
     int getDX();
     int getDY();
     int getX();
     void setX(int x);
     int getY();
     void setY(int y);
-    void setSpeed(int speed);
-    void setDirection(int dx, int dy);
     void updatePosition();
+    void accelerate();
+    void rotate(int);
+    virtual void reshape() = 0;
 };
 
 #endif // ELEMENT_H

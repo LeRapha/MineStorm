@@ -17,13 +17,15 @@ void MineStorm::mousePressed(int x, int y)
 
 void MineStorm::keyPressed(int key)
 {
-    QMatrix matrix;
     switch(key){
         case Qt::Key_Up:
-            spaceship->moveForward();
+            spaceship->accelerate();
             break;
         case Qt::Key_Left:
-
+            spaceship->rotate(-5);
+            break;
+        case Qt::Key_Right:
+            spaceship->rotate(5);
             break;
         default:
             break;
@@ -59,6 +61,7 @@ void MineStorm::checkForLoop(Element *element)
     if(element->getY() > size().height()){
         element->setY(0);
     }
+    element->reshape();
 }
 
 MineStorm::~MineStorm()
