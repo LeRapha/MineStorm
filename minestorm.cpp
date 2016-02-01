@@ -23,8 +23,7 @@ void MineStorm::keyPressed(int key)
             spaceship->moveForward();
             break;
         case Qt::Key_Left:
-            matrix.rotate(45);
-            matrix.map(*spaceship);
+
             break;
         default:
             break;

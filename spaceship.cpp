@@ -20,5 +20,5 @@ void Spaceship::initializeShape(){
 }
 
 void Spaceship::moveForward(){
-    this->setDirection(getDX(), getDY()+1);
+
 }
