@@ -1,10 +1,13 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
-#define MAX_SPEED 2
+#define MAX_SPEED 5
+#define SIZE_FACTOR 5
+
 #define PI 3.14
 
 #include <QPolygon>
+#include <QMatrix>
 #include <iostream>
 
 using namespace std;
@@ -22,16 +25,17 @@ protected:
 public:
     Element(int x, int y, int xSpeed, int ySpeed, int xDir, int yDir);
     ~Element();
-    int getDX();
-    int getDY();
+    int getDxSpeed();
+    int getDySpeed();
+    int getDxDirection();
+    int getDyDirection();
     int getX();
     void setX(int x);
     int getY();
     void setY(int y);
     void updatePosition();
-    void accelerate();
+    void moveForward();
     void rotate(int);
-    virtual void reshape() = 0;
 };
 
 #endif // ELEMENT_H

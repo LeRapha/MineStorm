@@ -12,18 +12,9 @@ Spaceship::~Spaceship()
 
 void Spaceship::initializeShape(){
     this->putPoints(0, 5,
-                    getX()-5,getY()+5,
-                    getX()+5,getY()+5,
+                    getX()-5,getY()-5,
                     getX()+5,getY()-5,
-                    getX(),getY()-10,
-                    getX()-5,getY()-5);
-}
-
-void Spaceship::reshape(){
-    this->putPoints(0, 5,
-                    getX()-5,getY()+5,
                     getX()+5,getY()+5,
-                    getX()+5,getY()-5,
-                    getX(),getY()-10,
-                    getX()-5,getY()-5);
+                    getX(),getY()+10,
+                    getX()-5,getY()+5);
 }

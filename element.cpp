@@ -15,12 +15,20 @@ Element::~Element()
 
 }
 
-int Element::getDX(){
+int Element::getDxSpeed(){
     return _dXSpeed;
 }
 
-int Element::getDY(){
+int Element::getDySpeed(){
     return _dYSpeed;
+}
+
+int Element::getDxDirection(){
+    return _dXDirection;
+}
+
+int Element::getDyDirection(){
+    return _dYDirection;
 }
 
 int Element::getX(){
@@ -48,7 +56,7 @@ void Element::updatePosition()
     setY(_y_pos + _dYSpeed);
 }
 
-void Element::accelerate(){
+void Element::moveForward(){
     if(_dXDirection > _dXSpeed){
         _dXSpeed++;
     }
@@ -64,10 +72,11 @@ void Element::accelerate(){
 }
 
 void Element::rotate(int angle){
-    float rad = angle * PI / 180.0;
+    double theta = (angle * PI) / 180.0;
     int tmpX = _dXDirection;
     int tmpY = _dYDirection;
-    _dXDirection = cos(rad)*(tmpX - _x_pos) - sin(rad)*(tmpY - _y_pos) + _x_pos;
-    _dYDirection = sin(rad)*(tmpX - _x_pos) + cos(rad)*(tmpY - _y_pos) + _y_pos;
-
+    _dXDirection = cos(theta)*(tmpX) - sin(theta)*(tmpY);
+    _dYDirection = sin(theta)*(tmpX) + cos(theta)*(tmpY);
+    cout << "[ROTATION][" << theta << "]" << endl;
+    cout << "[DIRECTION][" << _dXDirection << "][" << _dYDirection << "]" << endl;
 }
