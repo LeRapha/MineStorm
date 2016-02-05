@@ -3,6 +3,7 @@
 
 #include "game.h"
 #include "spaceship.h"
+#include "shot.h"
 #include <QPainter>
 
 using namespace std;
@@ -22,7 +23,9 @@ public:
     ~MineStorm();
 
 private:
-    Spaceship *spaceship;
+    Element *spaceship;
+    QList<Element*> shots;
+    QList<Element*> mines;
     virtual void step();
     void initialize();
 };

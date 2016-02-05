@@ -24,7 +24,8 @@ SOURCES += main.cpp \
     mainwindow.cpp \
     minestorm.cpp \
     element.cpp \
-    spaceship.cpp
+    spaceship.cpp \
+    shot.cpp
 
 HEADERS  += \
     controller.h \
@@ -35,6 +36,5 @@ HEADERS  += \
     mainwindow.h \
     minestorm.h \
     element.h \
-    spaceship.h
-
-FORMS    +=
+    spaceship.h \
+    shot.h

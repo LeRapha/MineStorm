@@ -7,12 +7,15 @@ MineStorm::MineStorm(const QSize &size, QObject *parent):Game(size,parent)
 
 void MineStorm::draw(QPainter &painter, QRect &rect)
 {
-    //Dessin du vaisseau de sa direction et de sa vitesse
+    //Spaceship drawing
     painter.drawPolygon(*spaceship);
-    painter.drawLine(spaceship->getPosition(),
-                     spaceship->getPosition() + spaceship->getDirection());
-    painter.drawLine(spaceship->getPosition(),
-                     spaceship->getPosition() + spaceship->getSpeed());
+
+    //Shots drawing
+    for(int i = 0; i < shots.length(); i++){
+        painter.drawPolygon(*shots[i]);
+    }
+
+    //Mines drawing
 }
 
 void MineStorm::mousePressed(int x, int y)
@@ -31,6 +34,9 @@ void MineStorm::keyPressed(int key)
             break;
         case Qt::Key_Right:
             spaceship->rotate(5);
+            break;
+        case Qt::Key_Space:
+            shots.append(new Shot(spaceship->getPosition(), spaceship->getDirection()/SPEED_FACTOR, QPoint(0,0)));
             break;
         default:
             break;
@@ -81,7 +87,11 @@ void MineStorm::step()
 {
     spaceship->updatePosition();
     checkForLoop(spaceship);
-    //cout << "[POSITION] : [" << spaceship->getX() <<"]\t[" << spaceship->getY() << "]" << endl;
+
+    //Shots position
+    for(int i = 0; i < shots.length(); i++){
+        shots[i]->updatePosition();
+    }
 }
 
 void MineStorm::initialize()
