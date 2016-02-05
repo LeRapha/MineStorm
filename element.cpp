@@ -32,34 +32,33 @@ void Element::moveForward(){
     if(_direction.y() < _speed.y()){
         _speed.setY(_speed.y()-1);
     }
-    cout << "[SPEED]" << _speed.x() << "," << _speed.y() << endl;
 }
 
 void Element::rotate(int angle){
-    rotateDirection(angle);
-    rotateShape(angle);
-    cout << "[ROTATION][" << angle << "]" << endl;
-    cout << "[DIRECTION][" << _direction.x() << "][" << _direction.y() << "]" << endl;
-}
-
-void Element::rotateDirection(int angle)
-{
-    double theta = (angle * PI) / 180.0;
-    int tmpX = _direction.x();
-    int tmpY = _direction.y();
-    _direction.setX(cos(theta)*(tmpX) - sin(theta)*(tmpY));
-    _direction.setY(sin(theta)*(tmpX) + cos(theta)*(tmpY));
-}
-
-void Element::rotateShape(int angle)
-{
     QMatrix matrix;
     matrix.rotate(angle);
+    rotateDirection(matrix);
+    rotateShape(matrix);
+}
+
+void Element::rotateDirection(QMatrix matrix)
+{
+    _direction = matrix.map(_direction);
+}
+
+void Element::rotateShape(QMatrix matrix)
+{
     QPolygon tmp;
     tmp.swap(*this);
-    tmp.translate(-_position.x(), -_position.y());
-    tmp = matrix.map(tmp);
-    tmp.translate(_position.x(), _position.y());
+    for(int i = 0; i < tmp.size(); i++){
+        QPoint p;
+        p.setX(tmp.point(i).x()-_position.x());
+        p.setY(tmp.point(i).y()-_position.y());
+        p = matrix.map(p);
+        p.setX(p.x() + _position.x());
+        p.setY(p.y() + _position.y());
+        tmp.setPoint(i, p);
+    }
     tmp.swap(*this);
 }
 

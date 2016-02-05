@@ -28,8 +28,8 @@ public:
     void updatePosition();
     void moveForward();
     void rotate(int);
-    void rotateDirection(int angle);
-    void rotateShape(int angle);
+    void rotateDirection(QMatrix angle);
+    void rotateShape(QMatrix angle);
 };
 
 #endif // ELEMENT_H
