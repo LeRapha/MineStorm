@@ -1,7 +1,7 @@
 #ifndef ELEMENT_H
 #define ELEMENT_H
 
-#define MAX_SPEED 100
+#define MAX_SPEED 50
 #define SPEED_FACTOR 10
 #define PI 3.14
 

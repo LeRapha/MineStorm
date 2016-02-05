@@ -1,6 +1,6 @@
 #include "shot.h"
 
-Shot::Shot(QPoint position, QPoint speed, QPoint direction):Element(position, speed, direction)
+Shot::Shot(QPoint position, QPoint speed):Element(position, speed, QPoint(0,0))
 {
     initializeShape();
 }

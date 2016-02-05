@@ -16,6 +16,9 @@ void MineStorm::draw(QPainter &painter, QRect &rect)
     }
 
     //Mines drawing
+    for(int i = 0; i < mines.length(); i++){
+        painter.drawPolygon(*mines[i]);
+    }
 }
 
 void MineStorm::mousePressed(int x, int y)
@@ -36,7 +39,7 @@ void MineStorm::keyPressed(int key)
             spaceship->rotate(5);
             break;
         case Qt::Key_Space:
-            shots.append(new Shot(spaceship->getPosition(), spaceship->getDirection()/SPEED_FACTOR, QPoint(0,0)));
+            shots.append(new Shot(spaceship->getPosition(), spaceship->getDirection()/SPEED_FACTOR));
             break;
         default:
             break;
@@ -85,9 +88,31 @@ MineStorm::~MineStorm()
 
 void MineStorm::step()
 {
+    updateSpaceShip();
+    updateMines();
+    updateShots();
+    checkForCollisions();
+}
+
+void MineStorm::checkForCollisions(){
+
+}
+
+void MineStorm::updateSpaceShip(){
+    //Spaceship position
     spaceship->updatePosition();
     checkForLoop(spaceship);
+}
 
+void MineStorm::updateMines(){
+    //Mines position
+    for(int i = 0; i < mines.length(); i++){
+        mines[i]->updatePosition();
+        checkForLoop(mines[i]);
+    }
+}
+
+void MineStorm::updateShots(){
     //Shots position
     for(int i = 0; i < shots.length(); i++){
         shots[i]->updatePosition();

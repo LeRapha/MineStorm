@@ -10,7 +10,7 @@ class Shot : public Element
 private:
     void initializeShape();
 public:
-    Shot(QPoint position, QPoint speed, QPoint direction);
+    Shot(QPoint position, QPoint speed);
     ~Shot();
 };
 

@@ -19,7 +19,6 @@ public:
     void keyReleased( int key ) override;
     void mouseReleased( int x, int y) override;
     void mouseMoved(int x, int y) override;
-    void checkForLoop(Element*);
     ~MineStorm();
 
 private:
@@ -28,6 +27,12 @@ private:
     QList<Element*> mines;
     virtual void step();
     void initialize();
+
+    void checkForLoop(Element*);
+    void checkForCollisions();
+    void updateSpaceShip();
+    void updateMines();
+    void updateShots();
 };
 
 #endif // MINESTORM_H
