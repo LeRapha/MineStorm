@@ -32,6 +32,7 @@ void Element::moveForward(){
     if(_direction.y() < _speed.y()){
         _speed.setY(_speed.y()-1);
     }
+    cout << "[SPEED]" << _speed.x() << "," << _speed.y() << endl;
 }
 
 void Element::rotate(int angle){
@@ -52,7 +53,7 @@ void Element::rotateDirection(int angle)
 
 void Element::rotateShape(int angle)
 {
-    QTransform matrix;
+    QMatrix matrix;
     matrix.rotate(angle);
     QPolygon tmp;
     tmp.swap(*this);

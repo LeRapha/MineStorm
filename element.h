@@ -2,12 +2,10 @@
 #define ELEMENT_H
 
 #define MAX_SPEED 5
-#define SIZE_FACTOR 5
-
 #define PI 3.14
 
 #include <QPolygon>
-#include <QTransform>
+#include <QMatrix>
 #include <iostream>
 
 using namespace std;

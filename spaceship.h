@@ -3,6 +3,8 @@
 
 #include "element.h"
 
+#define SPACESHIP_SIZE 26
+
 class Spaceship : public Element
 {
 protected:
