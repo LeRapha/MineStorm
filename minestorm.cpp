@@ -7,9 +7,12 @@ MineStorm::MineStorm(const QSize &size, QObject *parent):Game(size,parent)
 
 void MineStorm::draw(QPainter &painter, QRect &rect)
 {
+    //Dessin du vaisseau de sa direction et de sa vitesse
     painter.drawPolygon(*spaceship);
     painter.drawLine(spaceship->getPosition(),
                      spaceship->getPosition() + spaceship->getDirection());
+    painter.drawLine(spaceship->getPosition(),
+                     spaceship->getPosition() + spaceship->getSpeed());
 }
 
 void MineStorm::mousePressed(int x, int y)
@@ -52,20 +55,20 @@ void MineStorm::mouseMoved(int x, int y)
 void MineStorm::checkForLoop(Element *element)
 {
     if(element->getPosition().x() > size().width()){
+        element->translate(-element->getPosition().x(), 0);
         element->setPosition(QPoint(0,element->getPosition().y()));
-        element->translate(-size().width(), 0);
     }
     if(element->getPosition().x() < 0){
+        element->translate(size().width()-element->getPosition().x(), 0);
         element->setPosition(QPoint(size().width(),element->getPosition().y()));
-        element->translate(size().width(), 0);
     }
     if(element->getPosition().y() < 0){
+        element->translate(0, size().height()-element->getPosition().y());
         element->setPosition(QPoint(element->getPosition().x(), size().height()));
-        element->translate(0, size().height());
     }
     if(element->getPosition().y() > size().height()){
+        element->translate(0, -element->getPosition().y());
         element->setPosition(QPoint(element->getPosition().x(), 0));
-        element->translate(0, -size().height()-5);
     }
 }
 
