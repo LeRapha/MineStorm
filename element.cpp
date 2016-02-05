@@ -1,13 +1,10 @@
 #include "element.h"
 
-Element::Element(int x, int y, int xSpeed, int ySpeed, int xDir, int yDir)
+Element::Element(QPoint position, QPoint speed, QPoint direction)
 {
-    _x_pos = x;
-    _y_pos = y;
-    _dXSpeed = xSpeed;
-    _dYSpeed = ySpeed;
-    _dXDirection = xDir;
-    _dYDirection = yDir;
+    _position = position;
+    _speed = speed;
+    _direction = direction;
 }
 
 Element::~Element()
@@ -15,68 +12,40 @@ Element::~Element()
 
 }
 
-int Element::getDxSpeed(){
-    return _dXSpeed;
-}
-
-int Element::getDySpeed(){
-    return _dYSpeed;
-}
-
-int Element::getDxDirection(){
-    return _dXDirection;
-}
-
-int Element::getDyDirection(){
-    return _dYDirection;
-}
-
-int Element::getX(){
-    return _x_pos;
-}
-
-void Element::setX(int x)
-{
-    _x_pos = x;
-}
-
-int Element::getY(){
-    return _y_pos;
-}
-
-void Element::setY(int y)
-{
-    _y_pos = y;
-}
-
 void Element::updatePosition()
 {
-    translate(_dXSpeed, _dYSpeed);
-    setX(_x_pos + _dXSpeed);
-    setY(_y_pos + _dYSpeed);
+    translate(_speed);
+    setPosition(_position + _speed);
 }
 
 void Element::moveForward(){
-    if(_dXDirection > _dXSpeed){
-        _dXSpeed++;
+    if(_direction.x() > _speed.x()){
+        _speed.setX(_speed.x()+1);
     }
-    else if(_dXDirection < _dXSpeed){
-        _dXSpeed--;
+    else if(_direction.x() < _speed.x()){
+        _speed.setX(_speed.x()-1);
     }
-    if(_dYDirection > _dYSpeed){
-        _dYSpeed++;
+
+    if(_direction.y() > _speed.y()){
+        _speed.setY(_speed.y()+1);
     }
-    else if(_dYDirection < _dYSpeed){
-        _dYSpeed--;
+    if(_direction.y() < _speed.y()){
+        _speed.setY(_speed.y()-1);
     }
 }
 
 void Element::rotate(int angle){
     double theta = (angle * PI) / 180.0;
-    int tmpX = _dXDirection;
-    int tmpY = _dYDirection;
-    _dXDirection = cos(theta)*(tmpX) - sin(theta)*(tmpY);
-    _dYDirection = sin(theta)*(tmpX) + cos(theta)*(tmpY);
+    int tmpX = _direction.x();
+    int tmpY = _direction.y();
+    _direction.setX(cos(theta)*(tmpX) - sin(theta)*(tmpY));
+    _direction.setY(sin(theta)*(tmpX) + cos(theta)*(tmpY));
     cout << "[ROTATION][" << theta << "]" << endl;
-    cout << "[DIRECTION][" << _dXDirection << "][" << _dYDirection << "]" << endl;
+    cout << "[DIRECTION][" << _direction.x() << "][" << _direction.y() << "]" << endl;
 }
+
+/*Getters and setters*/
+QPoint Element::getSpeed(){return _speed;}
+QPoint Element::getDirection(){return _direction;}
+QPoint Element::getPosition(){return _position;}
+void Element::setPosition(QPoint position){_position = position;}

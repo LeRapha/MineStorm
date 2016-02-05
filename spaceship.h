@@ -8,7 +8,7 @@ class Spaceship : public Element
 protected:
     void initializeShape();
 public:
-    Spaceship(int x, int y);
+    Spaceship(QPoint position);
     ~Spaceship();
 };
 
