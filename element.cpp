@@ -35,13 +35,31 @@ void Element::moveForward(){
 }
 
 void Element::rotate(int angle){
+    rotateDirection(angle);
+    rotateShape(angle);
+    cout << "[ROTATION][" << angle << "]" << endl;
+    cout << "[DIRECTION][" << _direction.x() << "][" << _direction.y() << "]" << endl;
+}
+
+void Element::rotateDirection(int angle)
+{
     double theta = (angle * PI) / 180.0;
     int tmpX = _direction.x();
     int tmpY = _direction.y();
     _direction.setX(cos(theta)*(tmpX) - sin(theta)*(tmpY));
     _direction.setY(sin(theta)*(tmpX) + cos(theta)*(tmpY));
-    cout << "[ROTATION][" << theta << "]" << endl;
-    cout << "[DIRECTION][" << _direction.x() << "][" << _direction.y() << "]" << endl;
+}
+
+void Element::rotateShape(int angle)
+{
+    QTransform matrix;
+    matrix.rotate(angle);
+    QPolygon tmp;
+    tmp.swap(*this);
+    tmp.translate(-_position.x(), -_position.y());
+    tmp = matrix.map(tmp);
+    tmp.translate(_position.x(), _position.y());
+    tmp.swap(*this);
 }
 
 /*Getters and setters*/

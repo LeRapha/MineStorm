@@ -7,7 +7,7 @@
 #define PI 3.14
 
 #include <QPolygon>
-#include <QMatrix>
+#include <QTransform>
 #include <iostream>
 
 using namespace std;
@@ -29,6 +29,8 @@ public:
     void updatePosition();
     void moveForward();
     void rotate(int);
+    void rotateDirection(int angle);
+    void rotateShape(int angle);
 };
 
 #endif // ELEMENT_H
