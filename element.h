@@ -2,7 +2,7 @@
 #define ELEMENT_H
 
 #define MAX_SPEED 50
-#define SPEED_FACTOR 10
+#define SPEED_FACTOR 5
 #define PI 3.14
 
 #include <QPolygon>

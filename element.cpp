@@ -19,17 +19,17 @@ void Element::updatePosition()
 }
 
 void Element::moveForward(){
-    if(_direction.x() > _speed.x()){
+    if((_direction.x()/SPEED_FACTOR) > _speed.x()){
         _speed.setX(_speed.x()+1);
     }
-    else if(_direction.x() < _speed.x()){
+    else if((_direction.x()/SPEED_FACTOR) < _speed.x()){
         _speed.setX(_speed.x()-1);
     }
 
-    if(_direction.y() > _speed.y()){
+    if((_direction.y()/SPEED_FACTOR) > _speed.y()){
         _speed.setY(_speed.y()+1);
     }
-    if(_direction.y() < _speed.y()){
+    else if((_direction.y()/SPEED_FACTOR) < _speed.y()){
         _speed.setY(_speed.y()-1);
     }
 }
