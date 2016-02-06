@@ -1,18 +1,9 @@
 #include "mine.h"
 
-Mine::Mine(QPoint position, QPoint speed, MineSize size):Element(position, speed, QPoint(0,0))
+Mine::Mine(QPoint position, QPoint speed, MineSize size, MineState state):Element(position, speed, QPoint(0,0))
 {
-    switch(size){
-    case SMALL:
-        _size = SMALL_MINE_SIZE;
-        break;
-    case MEDIUM:
-        _size = MEDIUM_MINE_SIZE;
-        break;
-    case LARGE:
-        _size = LARGE_MINE_SIZE;
-        break;
-    }
+    _mineSize = size;
+    _mineState = state;
     initializeShape();
 }
 
@@ -23,8 +14,20 @@ Mine::~Mine()
 
 void Mine::initializeShape()
 {
-    (*this) << QPoint(getPosition().x()-_size, getPosition().y()-_size)
-            << QPoint(getPosition().x()-_size, getPosition().y()+_size)
-            << QPoint(getPosition().x()+_size, getPosition().y()+_size)
-            << QPoint(getPosition().x()+_size, getPosition().y()-_size);
+    int size;
+    switch(_mineSize){
+    case SMALL:
+        size = SMALL_MINE_SIZE;
+        break;
+    case MEDIUM:
+        size = MEDIUM_MINE_SIZE;
+        break;
+    case LARGE:
+        size = LARGE_MINE_SIZE;
+        break;
+    }
+    (*this) << QPoint(getPosition().x()-size, getPosition().y()-size)
+            << QPoint(getPosition().x()-size, getPosition().y()+size)
+            << QPoint(getPosition().x()+size, getPosition().y()+size)
+            << QPoint(getPosition().x()+size, getPosition().y()-size);
 }

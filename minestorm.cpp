@@ -7,18 +7,33 @@ MineStorm::MineStorm(const QSize &size, QObject *parent):Game(size,parent)
 
 void MineStorm::draw(QPainter &painter, QRect &rect)
 {
+    QBrush red(QColor(205,50,50));
+    QBrush white(QColor(255,255,255));
+    QBrush black(QColor(0,0,0));
+    QBrush yellow(QColor(250,215,0));
+
+    //Background color
+    painter.fillRect(rect, black);
+
     //Spaceship drawing
+    painter.setBrush(white);
     painter.drawPolygon(*spaceship);
 
     //Shots drawing
+    painter.setBrush(yellow);
     for(int i = 0; i < shots.length(); i++){
         painter.drawPolygon(*shots[i]);
     }
 
     //Mines drawing
+    painter.setBrush(red);
     for(int i = 0; i < mines.length(); i++){
         painter.drawPolygon(*mines[i]);
     }
+
+    //Score drawing
+
+    //Life number drawing
 }
 
 void MineStorm::mousePressed(int x, int y)
@@ -39,7 +54,7 @@ void MineStorm::keyPressed(int key)
             spaceship->rotate(5);
             break;
         case Qt::Key_Space:
-            shots.append(new Shot(spaceship->getPosition(), spaceship->getDirection()));
+            shots.append(new Shot(spaceship->getPosition(), (spaceship->getDirection()/SPEED_FACTOR)*2));
             break;
         default:
             break;
@@ -119,8 +134,27 @@ void MineStorm::updateShots(){
     }
 }
 
+void MineStorm::generateMines(MineSize type)
+{
+    int number;
+    if(type == SMALL)number = SMALL_MINE_NUMBER;
+    else if(type == MEDIUM)number = MEDIUM_MINE_NUMBER;
+    else if(type == LARGE)number = LARGE_MINE_NUMBER;
+
+    for(int i = 0; i < number; i++){
+        int xPos = rand()%size().width();
+        int yPos = rand()%size().height();
+        int xSpeed = ((rand()%MAX_SPEED*2)-MAX_SPEED)/(SPEED_FACTOR*2);
+        int ySpeed = ((rand()%MAX_SPEED*2)-MAX_SPEED)/(SPEED_FACTOR*2);
+        mines.append(new Mine(QPoint(xPos,yPos), QPoint(xSpeed,ySpeed), type, NEW));
+    }
+}
+
 void MineStorm::initialize()
 {
     spaceship = new Spaceship(QPoint(size().width()/2, size().height()/2));
+    generateMines(SMALL);
+    generateMines(MEDIUM);
+    generateMines(LARGE);
 }
 

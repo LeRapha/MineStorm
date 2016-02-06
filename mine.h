@@ -3,9 +3,13 @@
 
 #include "element.h"
 
-#define SMALL_MINE_SIZE 5
-#define MEDIUM_MINE_SIZE 10
-#define LARGE_MINE_SIZE 20
+#define SMALL_MINE_SIZE 2
+#define MEDIUM_MINE_SIZE 3
+#define LARGE_MINE_SIZE 4
+
+#define SMALL_MINE_NUMBER 5
+#define MEDIUM_MINE_NUMBER 20
+#define LARGE_MINE_NUMBER 5
 
 enum MineSize{
     SMALL,
@@ -13,13 +17,20 @@ enum MineSize{
     LARGE
 };
 
+enum MineState{
+    NEW,
+    BORN,
+    DYING
+};
+
 class Mine : public Element
 {
 private:
     void initializeShape();
-    int _size;
+    MineSize _mineSize;
+    MineState _mineState;
 public:
-    Mine(QPoint position, QPoint speed, MineSize size);
+    Mine(QPoint position, QPoint speed, MineSize size, MineState state);
     ~Mine();
 };
 
