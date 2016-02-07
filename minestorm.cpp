@@ -2,6 +2,7 @@
 
 MineStorm::MineStorm(const QSize &size, QObject *parent):Game(size,parent)
 {
+    spaceship = nullptr;
     this->initialize();
 }
 
@@ -12,12 +13,16 @@ void MineStorm::draw(QPainter &painter, QRect &rect)
     QBrush black(QColor(0,0,0));
     QBrush yellow(QColor(250,215,0));
 
+    QPen whitePen(QColor(white.color()));
+
     //Background color
     painter.fillRect(rect, black);
 
     //Spaceship drawing
     painter.setBrush(white);
     painter.drawPolygon(*spaceship);
+    painter.drawLine(spaceship->getPosition(),
+                     spaceship->getPosition() + spaceship->getDirection());
 
     //Shots drawing
     painter.setBrush(yellow);
@@ -32,8 +37,11 @@ void MineStorm::draw(QPainter &painter, QRect &rect)
     }
 
     //Score drawing
+    painter.setPen(whitePen);
+    painter.drawText(QPoint(1,10), QString("Score : ") + QString::number(score));
 
     //Life number drawing
+    painter.drawText(QPoint(1,20), QString("Lives : ") + QString::number(lifeNumber));
 }
 
 void MineStorm::mousePressed(int x, int y)
@@ -107,10 +115,35 @@ void MineStorm::step()
     updateMines();
     updateShots();
     checkForCollisions();
+    checkForRemainingMines();
 }
 
 void MineStorm::checkForCollisions(){
+    //check for spaceship and mines collision
+    for(int i = 0; i < mines.size(); i++){
+        if(!mines.at(i)->intersected(*spaceship).isEmpty()){
+            mines.removeAt(i);
+            lose();
+        }
+        for(int j = 0; j < shots.size(); j++){
+            if(!mines.at(i)->intersected(*shots.at(j)).isEmpty()){
+                mines.removeAt(i);
+                shots.removeAt(j);
+                score += 10;
+            }
+        }
+    }
+}
 
+void MineStorm::checkForRemainingMines()
+{
+    if(mines.isEmpty()){
+        QMessageBox msgBox;
+        msgBox.setText("You won !\n Score : " + QString::number(score));
+        msgBox.exec();
+        clearElements();
+        reset();
+    }
 }
 
 void MineStorm::updateSpaceShip(){
@@ -131,6 +164,7 @@ void MineStorm::updateShots(){
     //Shots position
     for(int i = 0; i < shots.length(); i++){
         shots[i]->updatePosition();
+        checkForLoop(shots[i]);
     }
 }
 
@@ -150,11 +184,35 @@ void MineStorm::generateMines(MineSize type)
     }
 }
 
+void MineStorm::lose()
+{
+    lifeNumber--;
+    if(lifeNumber <= 0){
+        QMessageBox msgBox;
+        msgBox.setText("You lost !\n Score : " + QString::number(score));
+        msgBox.exec();
+        clearElements();
+        reset();
+    }
+}
+
+void MineStorm::clearElements()
+{
+    if(spaceship != nullptr)delete spaceship;
+    for(int i = 0; i < shots.size(); i++)delete shots[i];
+    for(int i = 0; i < mines.size(); i++)delete mines[i];
+    shots.clear();
+    mines.clear();
+}
+
 void MineStorm::initialize()
 {
+    clearElements();
     spaceship = new Spaceship(QPoint(size().width()/2, size().height()/2));
     generateMines(SMALL);
     generateMines(MEDIUM);
     generateMines(LARGE);
+    score = 0;
+    lifeNumber = 4;
 }
 

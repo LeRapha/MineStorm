@@ -11,8 +11,10 @@ Spaceship::~Spaceship()
 }
 
 void Spaceship::initializeShape(){
-    (*this) << QPoint(getPosition().x()-SPACESHIP_SIZE, getPosition().y()-SPACESHIP_SIZE)
-            << QPoint(getPosition().x(), getPosition().y()-SPACESHIP_SIZE/2)
-            << QPoint(getPosition().x()+SPACESHIP_SIZE, getPosition().y()-SPACESHIP_SIZE)
-            << QPoint(getPosition().x(), getPosition().y()+SPACESHIP_SIZE*2);
+    (*this) << QPoint(getPosition().x(), getPosition().y()-SPACESHIP_SIZE)
+            << QPoint(getPosition().x()-SPACESHIP_SIZE/2, getPosition().y()-SPACESHIP_SIZE/2)
+            << QPoint(getPosition().x()-SPACESHIP_SIZE/2, getPosition().y()+SPACESHIP_SIZE/2)
+            << QPoint(getPosition().x(), getPosition().y()+SPACESHIP_SIZE)
+            << QPoint(getPosition().x()+SPACESHIP_SIZE/2, getPosition().y()+SPACESHIP_SIZE/2)
+            << QPoint(getPosition().x()+SPACESHIP_SIZE/2, getPosition().y()-SPACESHIP_SIZE/2);
 }

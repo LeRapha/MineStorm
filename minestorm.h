@@ -6,6 +6,7 @@
 #include "shot.h"
 #include "mine.h"
 #include <QPainter>
+#include <QMessageBox>
 
 using namespace std;
 
@@ -37,10 +38,13 @@ private:
     //private methods
     void checkForLoop(Element*);
     void checkForCollisions();
+    void checkForRemainingMines();
     void updateSpaceShip();
     void updateMines();
     void updateShots();
     void generateMines(MineSize type);
+    void lose();
+    void clearElements();
 };
 
 #endif // MINESTORM_H

@@ -3,7 +3,7 @@
 
 #include "Element.h"
 
-#define SHOT_SIZE 3
+#define SHOT_SIZE 30
 
 class Shot : public Element
 {
