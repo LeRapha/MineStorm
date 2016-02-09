@@ -1,7 +1,7 @@
 #ifndef SHOT_H
 #define SHOT_H
 
-#include "Element.h"
+#include "element.h"
 
 #define SHOT_SIZE 30
 

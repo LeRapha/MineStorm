@@ -51,27 +51,37 @@ void MineStorm::mousePressed(int x, int y)
 
 void MineStorm::keyPressed(int key)
 {
-    switch(key){
-        case Qt::Key_Up:
-            spaceship->moveForward();
-            break;
-        case Qt::Key_Left:
-            spaceship->rotate(-5);
-            break;
-        case Qt::Key_Right:
-            spaceship->rotate(5);
-            break;
-        case Qt::Key_Space:
-            shots.append(new Shot(spaceship->getPosition(), (spaceship->getDirection()/SPEED_FACTOR)*2));
-            break;
-        default:
-            break;
+    if(keysPressed.count(key) == 0) {
+        keysPressed.append(key);
     }
+
+    int nbKeysPressed = keysPressed.length();
+
+    for(int i=0;i < nbKeysPressed;i++) {
+
+        switch(keysPressed.at(i)){
+            case Qt::Key_Up:
+                spaceship->moveForward();
+                break;
+            case Qt::Key_Left:
+                spaceship->rotate(-5);
+                break;
+            case Qt::Key_Right:
+                spaceship->rotate(5);
+                break;
+            case Qt::Key_Space:
+                shots.append(new Shot(spaceship->getPosition(), (spaceship->getDirection()/SPEED_FACTOR)*2));
+                break;
+            default:
+                break;
+        }
+    }
+
 }
 
 void MineStorm::keyReleased(int key)
 {
-
+    keysPressed.removeOne(key);
 }
 
 void MineStorm::mouseReleased(int x, int y)

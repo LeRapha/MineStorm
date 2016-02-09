@@ -28,6 +28,7 @@ private:
     Element *spaceship;
     QList<Element*> shots;
     QList<Element*> mines;
+    QList<int> keysPressed;
     int score;
     int lifeNumber;
 
